@@ -184,7 +184,7 @@ class Login extends React.Component {
               onRequestClose={this.handleCloseModal}
            >
              <div className = "modaldiv text-center">
-               <p>{this.state.errorMessage}</p>
+               <p class = "error-message">{this.state.errorMessage}</p>
                <img className = "sademoji"  src = {SadEmoji}></img>
               </div>
             

@@ -140,7 +140,7 @@
   color: #ed1c24;
   font-size: 20px;
 }
-
+/* 
 @media screen and (max-width: 1200px) {
   .center-div {
     display: none;
@@ -149,7 +149,7 @@
   .resolutionHomeError {
     display: block;
   }
-}
+} */
 
 /* loading css */
 

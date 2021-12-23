@@ -130,7 +130,7 @@ class Login extends React.Component {
     }
     return(
         <div>
-        <p className = "resolutionLoginError">Madarchood Badi Screen Pe Dekh  :( </p>
+        
         <div className = "primary">
            
             <div className = "text-center">
@@ -184,7 +184,7 @@ class Login extends React.Component {
               onRequestClose={this.handleCloseModal}
            >
              <div className = "modaldiv text-center">
-               <p>{this.state.errorMessage}</p>
+               <p class="errorMessage">{this.state.errorMessage}</p>
                <img className = "sademoji"  src = {SadEmoji}></img>
               </div>
             

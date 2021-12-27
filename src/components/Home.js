@@ -56,7 +56,7 @@ class Home extends React.Component {
 
 
     console.log(sessionStorage.getItem("currentUsername"))
-    this.isLoading = setTimeout(() => { this.setState({ homeLoading: false }) }, 2300);
+    this.isLoading = setTimeout(() => { this.setState({ homeLoading: false }) }, 1000);
 
 
     const response = await fetch(`${this.HEROKUURL}/home`);
@@ -178,7 +178,7 @@ class Home extends React.Component {
         : (<div className="main">
 
 
-          <p className="resolutionHomeError">Madarchood Badi Screen Pe Dekh !!!</p>
+          <p className="resolutionHomeError"></p>
 
           <div className="container center-div">
             {/* <div className = "settingSearch text-center">

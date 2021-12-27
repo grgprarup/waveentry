@@ -22,7 +22,11 @@
   margin: auto;
 }
 
-.name-input {
+.name-input,
+.email-input,
+.address-input,
+.phone-input,
+.percentage-input {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -90,13 +94,6 @@
   cursor: pointer;
 }
 
-.cancelButton {
-  margin-right: 10px;
-}
-.register-Button {
-  margin-left: 10px;
-}
-
 .cancelButton:hover,
 .register-Button:hover {
   background-color: #2c2c2c;
@@ -115,4 +112,23 @@ input::-webkit-inner-spin-button {
   width: 105px;
   text-decoration: none;
   cursor: pointer;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.d-flex > .cell {
+  padding: 4px;
+  width: 100%;
+}
+@media only screen and (max-width: 1200px) {
+  .d-flex {
+    flex-wrap: wrap;
+  }
+}
+
+.button-div {
+  padding-bottom: 150px;
 }

@@ -130,7 +130,7 @@ class Login extends React.Component {
     }
     return(
         <div>
-        <p className = "resolutionLoginError">Madarchood Badi Screen Pe Dekh  :( </p>
+        <p className = "resolutionLoginError"></p>
         <div className = "primary">
            
             <div className = "text-center">

@@ -3,13 +3,16 @@ Feature:Login
     I want to login in to my account
     So that i can browse homepage
 
-    Scenario:Login with valid credential
+    Background: the user is in login page
         Given the user has browsed to the login page
+
+    Scenario:Login with valid credential
+
         When the user logs in with username "sagar12345" and password "sagar12345" using webUI
         Then the user should be in homepage
 
     Scenario Outline: Attempt to login with invalid credential
-        Given the user has browsed to the login page
+        # Given the user has browsed to the login page
         When the user logs in with username "<username>" and password "<password>" using webUI
         Then the error message "<message>" should be displayed on the webUI
 

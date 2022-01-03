@@ -39,18 +39,3 @@
     git commit -m "[Robot]Automated report"
     git pull --rebase remote.git ${{ github.head_ref }}
     git push remote.git HEAD:${{ github.head_ref }}
-
-
-
-Commit ids
-- Commit 3 :  95c21c7ba628807312252227b1d09e65e22ec05d
-- commit 2 :  cb7d6751e1bf880302dd36bb568304777e8d3ffd
-- commit 1 :  52fa357da90aa86415e9a5cb804bce34070400c2
-- init prarup : 9f141642c5c365b59ef1ab71d5996acacaeca598
-
-one:        f6ac5992dbad4046ea40993bdc87e1fd4fe33db0
-two:    b7af608a85083ea8cb48f47559343152fb47ccc4
-three:  9100dca41daad4c42cf97ed16e55ef1c2dfb8fe7
-four:   d9a25a23a8afdb66172d5be94d1575cbcbd85148
-five:   fc27af69f931c1d300962777d9b3158aba81dcb1
-six:    54559fea82eaf17c98ce82f590d7dd6132b52c10

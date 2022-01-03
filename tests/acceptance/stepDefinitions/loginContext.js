@@ -1,25 +1,22 @@
-const { Given, When, Then } = require('@cucumber/cucumber')
+const { Given, When, Then } = require('@cucumber/cucumber');
+const { HomePage } = require('../pageObjects/HomePage');
+const { LoginPage } = require('../pageObjects/LoginPage');
 
+const loginPage = new LoginPage()
+const homePage = new HomePage()
 Given('the user has browsed to login page', async function () {
-    await page.goto("http://localhost:3000/");
-    const locator = page.locator('.loginlogo');
-    expect(locator).toBeVisible();
+    await loginPage.navigate()
 });
 
 When('the user logs in with username {string} and password {string} using the webUI', async function (username, password) {
-    await page.fill('.username', username)
-    await page.fill('.password', password)
-    await page.click('.submitbutton')
+    await loginPage.login(username, password)
 });
 
 Then('the user should be in homepage', async function () {
-    const locator = page.locator('.homelogo');
-    expect(locator).toBeVisible();
+    await homePage.confirmLoggedIn()
 });
 
-Then('the error message {string} should be displayed on the webUI',async function (message) {
-    let actualErrorMessage = await page.innerText('.errorMessage');
-    actualErrorMessage = actualErrorMessage.replace(/"/g,"");
-    expect(actualErrorMessage).toBe(message);
+Then('the error message {string} should be displayed on the webUI', async function (message) {
+    await loginPage.loginErrorMessage(message)
 });
 

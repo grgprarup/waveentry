@@ -20,6 +20,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { color } from '@mui/system';
 import { time } from 'faker';
 import ReactModal from 'react-modal';
+import { getStudents, deleteStudent } from '../api/student';
 
 
 const Loading = () =>
@@ -45,9 +46,6 @@ class Home extends React.Component {
       deleteMessage: "",
 
     }
-    this.HEROKUURL = "https://wave-entry-server.herokuapp.com"
-    this.HOMEURL = "http://localhost:5000/"
-
   }
 
   async componentDidMount() {
@@ -59,8 +57,8 @@ class Home extends React.Component {
     this.isLoading = setTimeout(() => { this.setState({ homeLoading: false }) }, 1000);
 
 
-    const response = await fetch(`${this.HEROKUURL}/home`);
-    if (response) {
+    const response = await getStudents();
+    if (response.status === 200) {
       const data = await response.json();
       if (data) {
         this.setState({
@@ -114,15 +112,19 @@ class Home extends React.Component {
   handleDelete = async (user_id) => {
     // window.alert(user_id + "data has been deleted from database!!") 
 
-    const data = await fetch(`${this.HEROKUURL}/delete/${user_id}`);
     try {
-
-      if (data) {
+      const res = await deleteStudent(user_id);
+      if (res.status === 200) {
         this.setState({
           deleteMessage: "User Delete Successfull !!",
           showModalSuccessfull: true,
         })
-
+      } else {
+        this.setState({
+          showModalSuccessfull: true,
+          deleteMessage: "Problem occured during delete !!!"
+  
+        })
       }
 
 

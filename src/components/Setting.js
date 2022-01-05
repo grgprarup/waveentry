@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import {Redirect, useHistory } from 'react-router-dom';
 import '../cssfolder/setting.css'
 import ReactModal from 'react-modal';
-import SadEmoji from '../images/sad.png'
+import SadEmoji from '../images/sad.png';
+import { updateProfile } from '../api/admin';
 
 
 class Setting extends Component{
@@ -55,7 +56,7 @@ class Setting extends Component{
 
         // validation starts here
 
-        if(user_id === "" || newUsername ==="" || newPassword === "" || confirmPassword ===""){
+        if(newUsername ==="" || newPassword === "" || confirmPassword ===""){
             this.setState({
                 showModal:true,
                 settingErrorMessage:"Fileds cannot be left empty !!"
@@ -72,39 +73,22 @@ class Setting extends Component{
             })
         }else {
 
-            const res = await fetch(`${this.HEROKUURL}/changesetting`,{
-                method:"POST",
-                headers:{
-                  'Content-Type' : 'application/json'
-                },
-                body:JSON.stringify({
+            const res = await updateProfile(newUsername, newPassword)
     
-                    user_id:user_id,
-                    newUsername:newUsername,
-                    newPassword:newPassword
-                    
-                })
-              })
-    
-              const data = await res.json();
-              console.log(JSON.stringify(data.status))  
-              if(JSON.stringify(data.status) === "400"){
-                this.setState({
-                    showModal:true,
-                    settingErrorMessage:JSON.stringify(data.response)
-                })
-              }else if(JSON.stringify(data.status) === "401" )
-              {
-                this.setState({
-                    showModal:true,
-                    settingErrorMessage:JSON.stringify(data.response)
-                })
-              }else{
-                this.setState({
-                    showModalSuccessfull:true,
-                    settingErrorMessage:JSON.stringify(data.response)
-                })
-              }
+            const data = await res.json();
+
+            if(res.status !== 200){
+            this.setState({
+                showModal:true,
+                settingErrorMessage:JSON.stringify(data.error)
+            })
+            }else{
+            this.setState({
+                showModalSuccessfull:true,
+                settingErrorMessage: "Credentials updated"
+            })
+            localStorage.removeItem("token")
+            }
             
 
         }

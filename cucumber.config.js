@@ -10,9 +10,11 @@ const { expect } = require("@playwright/test");
 
 const {
   deleteAllStudents,
+  deleteTestUsers,
 } = require("./tests/acceptance/testHelper/cleanup.js");
 
 global.expect = expect;
+global.testUsers = [];
 setDefaultTimeout(60 * 1000);
 
 BeforeAll(async function () {
@@ -40,4 +42,5 @@ After(async function () {
   await global.page.close();
   await global.context.close();
   await deleteAllStudents();
+  await deleteTestUsers();
 });

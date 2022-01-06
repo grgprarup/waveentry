@@ -2,6 +2,7 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 const { LoginPage } = require("../pageObjects/loginPage");
 const { HomePage } = require("../pageObjects/homePage");
 const { RegisterPage } = require("../pageObjects/registerPage");
+const { createUser } = require("../testHelper/apiHelper");
 
 const loginPage = new LoginPage();
 const homePage = new HomePage();
@@ -45,10 +46,18 @@ Given("the user has browsed to homepage and registerpage", async function () {
 
 When("the user enters following data", async (dataTable) => {
   const data = dataTable.rowsHash();
-  
+
   await registerPage.registerStudent(data);
 });
 
 Then("the message {string} should be displayed", async function (message) {
   await registerPage.registerMessageModal(message);
+});
+
+Given("the following users have been created", async function (dataTable) {
+  const users = dataTable.hashes();
+  for (let user of users) {
+    const response = await createUser(user);
+    expect(response.status).toEqual(201);
+  }
 });

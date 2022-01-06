@@ -25,8 +25,6 @@ class LoginPage {
     message = `"${message}"`;
     expect(actualText).toBe(message);
   }
-
-  
 }
 
 module.exports = { LoginPage };

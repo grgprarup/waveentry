@@ -2,6 +2,7 @@ import { fontWeight } from '@mui/system';
 import React from 'react'
 import {Redirect,useHistory,useLocation } from 'react-router-dom';
 import '../cssfolder/viewDetails.css'
+import { getStudent } from '../api/student';
 
 
 
@@ -16,8 +17,6 @@ class ViewDetails extends React.Component {
      showIeltsScore:false,
      topMargin:"10%",
    }
-   this.HEROKUURL = "https://wave-entry-server.herokuapp.com"
-    this.HOMEURL = "http://localhost:5000/"
   }
 
 
@@ -25,8 +24,8 @@ class ViewDetails extends React.Component {
   {
     console.log(this.props.match.params.id)
 
-    const response = await fetch(`${this.HEROKUURL}/viewdetails/${this.props.match.params.id}`);
-      if(response){
+    const response = await getStudent(this.props.match.params.id) 
+      if(response.status === 200){
         const data = await response.json();
         if(data){
           this.setState({

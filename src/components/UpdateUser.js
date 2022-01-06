@@ -5,6 +5,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import ReactModal from 'react-modal';
 import SadEmoji from '../images/sad.png'
+import { updateStudent, getStudent } from '../api/student';
 
 const customStyles = {
   container: provided => ({
@@ -65,9 +66,6 @@ class UpdateUser extends React.Component {
       showModal: false,
       showModalSuccessfull:false
     };
-
-    this.HEROKUURL = "https://wave-entry-server.herokuapp.com"
-    this.HOMEURL = "http://localhost:5000/"
  }
 
 
@@ -189,31 +187,26 @@ var ielts,destination,qualification
           registrationErrorMessage:"Invalid Percentage!!"
         })
       }else{
+        const formData = {
+          name,
+          email,
+          phone,
+          destination,
+          qualification,
+          address,
+          percentage,
+          ielts,
+          listening,
+          reading,
+          writing,
+          speaking,
+          overallband,
+        }
 
-      const res = await fetch(`${this.HEROKUURL}/update/${this.props.match.params.id}`,{
-      method:"POST",
-      headers:{
-        'Content-Type' : 'application/json'
-      },
-      body:JSON.stringify({
-        name:name,
-        email:email,
-        phone:phone,
-        destination:destination,
-        qualification :qualification,
-        address:address,
-        percentage:percentage,
-        ielts:ielts,
-        listening:listening,
-        reading:reading,
-        writing:writing,
-        speaking:speaking,
-        overallband:overallband
-      })
-    })
+        const res = await updateStudent(this.props.match.params.id, formData)
 
-    const data = await res.json();
-        if(data.status == 201){
+        const data = await res.json();
+        if(res.status !== 200){
           this.setState({
             showModal:true,
             registrationErrorMessage:"Something Went Wrong During Update!!"
@@ -256,30 +249,25 @@ var ielts,destination,qualification
           registrationErrorMessage:"Invalid Percentage!!"
         })
       }else {
-        const res = await fetch(`${this.HEROKUURL}/update/${this.props.match.params.id}`,{
-          method:"POST",
-          headers:{
-            'Content-Type' : 'application/json'
-          },
-          body:JSON.stringify({
-            name:name,
-            email:email,
-            phone:phone,
-            destination:destination,
-            qualification :qualification,
-            address:address,
-            percentage:percentage,
-            ielts:ielts,
-            listening:listening,
-            reading:reading,
-            writing:writing,
-            speaking:speaking,
-            overallband:overallband
-          })
-        })
+        const formData = {
+          name,
+          email,
+          phone,
+          destination,
+          qualification,
+          address,
+          percentage,
+          ielts,
+          listening,
+          reading,
+          writing,
+          speaking,
+          overallband,
+        }
+        const res = await updateStudent(this.props.match.params.id, formData)
     
         const data = await res.json();
-            if(data.status == 201){
+            if(res.status !== 200){
               this.setState({
                 showModal:true,
                 registrationErrorMessage:"Something Went Wrong During Update!!"
@@ -303,8 +291,8 @@ async componentDidMount()
 
     // console.log(this.props.match.params.id)
 
-    const response = await fetch(`${this.HEROKUURL}/update/${this.props.match.params.id}`);
-      if(response){
+    const response = await getStudent(this.props.match.params.id)
+      if(response.status === 200){
         const data = await response.json();
         if(data){
           this.setState({

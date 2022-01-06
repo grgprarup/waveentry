@@ -6,6 +6,7 @@ import axios from "axios";
 import "../cssfolder/register.css";
 import ReactModal from "react-modal";
 import SadEmoji from "../images/sad.png";
+import { registerStudent } from '../api/student';
 
 const customStyles = {
   container: (provided) => ({
@@ -56,9 +57,6 @@ class Register extends React.Component {
       showModal: false,
       showModalSuccessfull: false,
     };
-
-    this.HEROKUURL = "https://wave-entry-server.herokuapp.com";
-    this.HOMEURL = "http://localhost:5000/";
   }
 
   handleDestinationChange = (destination) => {
@@ -144,30 +142,25 @@ class Register extends React.Component {
           registrationErrorMessage: "Invalid Percentage!!",
         });
       } else {
-        const res = await fetch(`${this.HEROKUURL}/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            phone: phone,
-            destination: destination,
-            qualification: qualification,
-            address: address,
-            percentage: percentage,
-            ielts: ielts,
-            listening: listening,
-            reading: reading,
-            writing: writing,
-            speaking: speaking,
-            overallband: overallband,
-          }),
-        });
+        const formData = {
+          name,
+          email,
+          phone,
+          destination,
+          qualification,
+          address,
+          percentage,
+          ielts,
+          listening,
+          reading,
+          writing,
+          speaking,
+          overallband,
+        }
+        const res = await registerStudent(formData)
 
         const data = await res.json();
-        if (data.status == 201) {
+        if (res.status !== 201) {
           this.setState({
             showModal: true,
             registrationErrorMessage: "User Already Exist Cannot Register!!",
@@ -223,30 +216,25 @@ class Register extends React.Component {
           registrationErrorMessage: "Invalid Percentage!!",
         });
       } else {
-        const res = await fetch(`${this.HEROKUURL}/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            phone: phone,
-            destination: destination,
-            qualification: qualification,
-            address: address,
-            percentage: percentage,
-            ielts: ielts,
-            listening: listening,
-            reading: reading,
-            writing: writing,
-            speaking: speaking,
-            overallband: overallband,
-          }),
-        });
+        const formData = {
+          name,
+          email,
+          phone,
+          destination,
+          qualification,
+          address,
+          percentage,
+          ielts,
+          listening,
+          reading,
+          writing,
+          speaking,
+          overallband,
+        }
+        const res = await registerStudent(formData)
 
         const data = await res.json();
-        if (data.status == 201) {
+        if (res.status !== 201) {
           this.setState({
             showModal: true,
             registrationErrorMessage: "User Already Exist Cannot Register!!",

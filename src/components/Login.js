@@ -3,7 +3,8 @@ import {Redirect,useHistory } from 'react-router-dom';
 import '../cssfolder/Login.css';
 import LoginLogo from '../images/loginlogowaves.png'
 import ReactModal from 'react-modal';
-import SadEmoji from '../images/sad.png'
+import SadEmoji from '../images/sad.png';
+import { login } from '../api/admin';
 
 
 class Login extends React.Component {
@@ -30,9 +31,6 @@ class Login extends React.Component {
       loggedIn
      
     }
-
-    this.HEROKUURL = "https://wave-entry-server.herokuapp.com"
-    this.HOMEURL = "http://localhost:5000/"
     this.loginHandler = this.loginHandler.bind(this);
   }
 
@@ -66,24 +64,14 @@ class Login extends React.Component {
     }else{
 
 
-      const res = await fetch(`${this.HEROKUURL}`,{
-        method:"POST",
-        headers:{
-          'Content-Type' : 'application/json'
-        },
-        body:JSON.stringify({
-          username:username,
-          password:password,
-         
-        })
-      })
+      const res = await login(username, password);
   
       const data = await res.json();
-      // console.log(JSON.stringify(data))
-      if(data.status === 201){
+
+      if(res.status === 200){
        sessionStorage.currentUsername = username
 
-        localStorage.setItem("token","mytoken");
+        localStorage.setItem("token", data.accessToken);
         this.setState({
           loggedIn:true
         })

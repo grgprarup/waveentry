@@ -7,10 +7,12 @@ Feature:Login
         Given the user has browsed to the login page
 
     Scenario:Login with valid credential
+    
 
         When the user logs in with username "sagar12345" and password "sagar12345" using webUI
         Then the user should be in homepage
 
+   
     Scenario Outline: Attempt to login with invalid credential
         # Given the user has browsed to the login page
         When the user logs in with username "<username>" and password "<password>" using webUI

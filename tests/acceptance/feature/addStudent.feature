@@ -22,7 +22,7 @@ Feature: Add student
     Scenario: Add student with IELTS score
         When the user adds student with following information
             | Name          | Prarup Gurung       |
-            | Email         | pras3754545763s@gmail.com |
+            | Email         | prass@gmail.com |
             | Address       | Pokhara             |
             | Phone         | 9334506665          |
             | Qualification | masters             |

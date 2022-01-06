@@ -2,6 +2,8 @@ const { Before, BeforeAll, AfterAll, After, setDefaultTimeout } = require("@cucu
 const { chromium } = require("playwright");
 const { expect } = require("@playwright/test");
 
+const {deleteAllStudents} = require("./tests/acceptance/testHelper/.js")
+
 global.expect = expect
 setDefaultTimeout(60000)
 BeforeAll(async function () {
@@ -27,4 +29,5 @@ Before(async function () {
 After(async function () {
     await global.page.close();
     await global.context.close();
+    await deleteAllStudents();
 });

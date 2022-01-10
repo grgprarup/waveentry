@@ -1,3 +1,5 @@
+const { baseUrl } = require("../testHelper/pageHelper");
+
 class LoginPage {
   constructor() {
     this.loginlogo = ".loginlogo";
@@ -5,10 +7,11 @@ class LoginPage {
     this.password = ".password";
     this.submitbutton = ".submitbutton";
     this.serverMessage = ".modaldiv > p";
+    this.url = "/";
   }
 
   async browseToLoginPage() {
-    await page.goto("http://localhost:3000/");
+    await page.goto(`${baseUrl}/`);
     const locator = page.locator(this.loginlogo);
     await expect(locator).toBeVisible();
   }

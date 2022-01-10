@@ -7,6 +7,7 @@ const {
 } = require("@cucumber/cucumber");
 const { chromium } = require("playwright");
 const { expect } = require("@playwright/test");
+const config = require("./tests/acceptance/config");
 
 const {
   deleteAllStudents,
@@ -19,7 +20,9 @@ setDefaultTimeout(60 * 1000);
 
 BeforeAll(async function () {
   global.browser = await chromium.launch({
-    headless: false,
+    slowMo: config.slowMo,
+    headless: config.headless,
+    channel: "chrome",
   });
 
   // console.log("This is before all hooks");

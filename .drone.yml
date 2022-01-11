@@ -27,6 +27,12 @@ steps:
       - "npm ci"
       - "npm start"
 
+  - name: wait
+    image: owncloudci/wait-for:latest
+    commands:
+      - wait-for -it waveentry-server:3001 -t 300
+      - wait-for -it waveentry:3000 -t 300
+
   - name: acceptance-test
     image: node:14
     commands:

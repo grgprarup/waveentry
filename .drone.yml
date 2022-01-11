@@ -1,0 +1,39 @@
+kind: pipeline
+type: docker
+name: e2etest
+
+steps:
+  - name: waveentry-server
+    image: node:14
+    environment:
+      DB_HOST: mongodb
+      SERVER_PORT: 3001
+      JWT_SECRET: abcd1234
+      DB_PORT: 27017
+      DB_NAME: waveentrydatabase
+    commands:
+      - "git clone https://github.com/SagarGi/wave-entry-server.git /waveentry-server"
+      - "cd /waveentry-server"
+      - "npm ci"
+      - "npm start"
+  
+  - name: waveentry
+    image: node:14
+    environment:
+      REACT_APP_SERVER_URI: http://waveentry-server:3001
+    commands:
+      - "npm ci"
+      - "npm start"
+
+  - name: acceptance-test
+    image: node:14
+    commands:
+      - "npm run test:e2e tests/acceptance/features/"
+
+services:
+  - name: mongodb
+    image: mongo
+
+trigger:
+  branch:
+    - master

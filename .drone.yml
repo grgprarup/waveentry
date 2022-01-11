@@ -33,6 +33,12 @@ steps:
       - npm ci
       - BROWSER=none npm start
 
+  - name: wait-for-servers
+    image: owncloudci/wait-for:latest
+    commands:
+      - wait-for -it server:3001 -t 300
+      - wait-for -it web-client:3000 -t 300
+
   - name: acceptance-tests
     image: node:14
     environment:

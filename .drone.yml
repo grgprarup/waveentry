@@ -25,6 +25,7 @@ steps:
       REACT_APP_SERVER_URI: http://waveentry-server:3001
     commands:
       - "npm ci"
+      - npx playwright install
       - "npm start"
 
   - name: wait

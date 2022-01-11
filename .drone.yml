@@ -5,6 +5,7 @@ name: e2etest
 steps:
   - name: waveentry-server
     image: node:14
+    detach: true
     environment:
       DB_HOST: mongodb
       SERVER_PORT: 3001
@@ -19,6 +20,7 @@ steps:
   
   - name: waveentry
     image: node:14
+    detach: true
     environment:
       REACT_APP_SERVER_URI: http://waveentry-server:3001
     commands:

@@ -19,7 +19,6 @@ steps:
     commands:
       - git clone --single-branch -b master --depth 1 https://github.com/saw-jan/wave-entry-server.git /tmp/server
       - cd /tmp/server
-      - ls
       - npm ci
       - npm run db:seed
       - npm start
@@ -45,7 +44,8 @@ steps:
       SERVER_URL: http://server:3001
       WEB_URL: http://web-client:3000
     commands:
-      - npm run test:e2e tests/acceptance/features
+      - npm run setup:e2e
+      - npm run test:e2e tests/acceptance/features/login.feature
 
 services:
   - name: mongodb

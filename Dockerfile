@@ -2,11 +2,10 @@ FROM node:14
 
 WORKDIR /app/waveentry
 
-EXPOSE 3000
-
 COPY . .
+
+EXPOSE 3000
 
 RUN npm i
 
-CMD [ "npm", "start" ]
-
+CMD ["npm" , "start"]

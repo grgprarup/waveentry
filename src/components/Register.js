@@ -6,7 +6,7 @@ import axios from "axios";
 import "../cssfolder/register.css";
 import ReactModal from "react-modal";
 import SadEmoji from "../images/sad.png";
-import { registerStudent } from '../api/student';
+import { registerStudent } from "../api/student";
 
 const customStyles = {
   container: (provided) => ({
@@ -156,8 +156,8 @@ class Register extends React.Component {
           writing,
           speaking,
           overallband,
-        }
-        const res = await registerStudent(formData)
+        };
+        const res = await registerStudent(formData);
 
         const data = await res.json();
         if (res.status !== 201) {
@@ -230,8 +230,8 @@ class Register extends React.Component {
           writing,
           speaking,
           overallband,
-        }
-        const res = await registerStudent(formData)
+        };
+        const res = await registerStudent(formData);
 
         const data = await res.json();
         if (res.status !== 201) {

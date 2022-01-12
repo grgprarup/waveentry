@@ -1,8 +1,8 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
-const { baseUrl } = require("../testHelper/pageHelper");
+const config = require("../config");
 
 Given("the user has browsed to the loginpage", async function () {
-  await page.goto(`${baseUrl}/`);
+  await page.goto(`${config.baseUrl}/`);
   const locator = page.locator(".loginlogo");
   await expect(locator).toBeVisible();
 });

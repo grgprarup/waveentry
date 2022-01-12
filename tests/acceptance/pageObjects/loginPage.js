@@ -1,4 +1,4 @@
-const { baseUrl } = require("../testHelper/pageHelper");
+const config = require("../config");
 
 class LoginPage {
   constructor() {
@@ -11,7 +11,7 @@ class LoginPage {
   }
 
   async browseToLoginPage() {
-    await page.goto(`${baseUrl}/`);
+    await page.goto(`${config.baseUrl}/`);
     const locator = page.locator(this.loginlogo);
     await expect(locator).toBeVisible();
   }

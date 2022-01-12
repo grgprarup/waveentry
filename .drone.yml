@@ -13,10 +13,10 @@ steps:
       DB_PORT: 27017
       DB_NAME: waveentrydatabase
     commands:
-      - "git clone https://github.com/SagarGi/wave-entry-server.git /waveentry-server"
-      - "cd /waveentry-server"
-      - "npm ci"
-      - "npm start"
+      - git clone https://github.com/SagarGi/wave-entry-server.git /waveentry-server
+      - cd /waveentry-server
+      - npm ci
+      - npm start
   
   - name: waveentry
     image: owncloudci/nodejs:14
@@ -24,9 +24,8 @@ steps:
     environment:
       REACT_APP_SERVER_URI: http://waveentry-server:3001
     commands:
-      - "npm ci"
-      - npx playwright install
-      - "npm start"
+      - npm ci
+      - BROWSER=none npm start
 
   - name: wait
     image: owncloudci/wait-for:latest
@@ -36,8 +35,11 @@ steps:
 
   - name: acceptance-test
     image: owncloudci/nodejs:14
+    environment:
+      SERVER_URL: http://waveentry-server:3001
+      WEB_URL: http://waveentry:3000
     commands:
-      - "npm run test:e2e tests/acceptance/features/"
+      - npm run test:e2e tests/acceptance/features/login.feature
 
 services:
   - name: mongodb

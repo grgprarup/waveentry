@@ -39,7 +39,7 @@ steps:
       SERVER_URL: http://waveentry-server:3001
       WEB_URL: http://waveentry:3000
     commands:
-      - npm run test:e2e tests/acceptance/features/login.feature
+      - npm run test:e2e tests/acceptance/features/
 
 services:
   - name: mongodb

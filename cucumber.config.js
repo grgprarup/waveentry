@@ -7,6 +7,7 @@ const {
 } = require("@cucumber/cucumber");
 const { chromium } = require("playwright");
 const { expect } = require("@playwright/test");
+const config = require("./tests/acceptance/config");
 
 const {
   deleteAllStudents,

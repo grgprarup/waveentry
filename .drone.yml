@@ -1,0 +1,52 @@
+kind: pipeline #to generate pipeline
+type: docker # means it uses docker
+name: webUIDroneTest #name of pipleline
+
+steps:
+  - name: waveentry-server
+    image: owncloudci/nodejs:14
+    environment:
+      DB_HOST: database
+      DB_NAME: wavedb
+      SERVER_PORT: 3001
+      JWT_SECRET: abcd1234
+      DB_PORT: 27017
+    detach: true
+    commands:
+      - git clone https://github.com/SagarGi/wave-entry-server.git /waveentry-server
+      - cd /waveentry-server
+      - npm ci # same as npm install used in CI
+      - npm start
+
+  - name: waveentry-forntend
+    image: owncloudci/nodejs:14
+    environment:
+      REACT_APP_SERVER_URL: http://waveentry-server:3001
+    commands:
+      - npm ci
+      - npm start
+    detach: true
+
+  - name: wait
+    image: owncloudci/wait-for:latest
+    commands:
+      - wait-for -it waveentry-server:3001 -t 300
+      - wait-for -it waveentry:3000 -t 300
+
+  - name: e2eTest
+    image: owncloudci/nodejs:14
+    environment:
+      SERVER_URL: http://waveentry-server:3001
+      WEB_URL: http://waveentry:3000
+
+    commands:
+      - npm run test:e2e tests/acceptance/features
+
+# services runs before the steps starts executing
+services:
+  - name: database
+    image: mongo
+
+trigger:
+  branch:
+    - master
